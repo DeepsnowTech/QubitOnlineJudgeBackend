@@ -1,4 +1,6 @@
 /__pycache__
 *.pyc
 /ProblemCenter
-.log
+*.log
+core
+spj_out

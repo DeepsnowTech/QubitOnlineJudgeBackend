@@ -166,10 +166,10 @@ class JudgeClient(object):
         
         run_result=run_command_with_rlimits(command,kwargs["input_path"],kwargs["output_path"],time_limit=100,memory_limit_GB=10)
 
-        """
-        with open("/code/jc_log","a") as f:
-            print(run_result,file=f)
-        """
+        
+        with open("/code/jc.log","a") as f:
+            print(kwargs,file=f)
+        
 
         run_result["test_case"] = test_case_file_id
 

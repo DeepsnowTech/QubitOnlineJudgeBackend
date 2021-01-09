@@ -16,7 +16,9 @@ def run_command_with_rlimits(command,in_path,out_path,time_limit,memory_limit_GB
         stdout=open(out_path,"w")
         stdin=open(in_path,"r")
         timeStarted = time.time() 
-        p = subprocess.Popen(command, preexec_fn=preexec_fn,stdout=stdout,stdin=stdin)
+
+        sub_user_cmd="  ".join(command) 
+        p = subprocess.Popen(["su", "code", "-c", sub_user_cmd], preexec_fn=preexec_fn,stdout=stdout,stdin=stdin)
         p.wait()
         timeDelta = int((time.time() - timeStarted)*1000)
         #print(timeDelta)
@@ -29,11 +31,10 @@ def run_command_with_rlimits(command,in_path,out_path,time_limit,memory_limit_GB
     return result
 
 if __name__ == "__main__":
-    command=['/usr/bin/python3', 'test2.py']
-    py_path="/code/test2.py"
-    in_path="/code/in.txt"
-    out_path="/code/out.txt"
-    time_limit=1
-    memory_limit_GB=1
+    command=['/usr/bin/python3',"/code/Tests/code_runner_test.py"]
+    in_path="/code/Tests/in.txt"
+    out_path="/code/Tests/out.txt"
+    time_limit=100
+    memory_limit_GB=10
     result=run_command_with_rlimits(command,in_path,out_path,time_limit,memory_limit_GB)
     print(result)
